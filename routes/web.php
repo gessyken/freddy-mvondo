@@ -62,12 +62,20 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/admin/civil-acts', [AdminController::class, 'civilActs'])->name('admin.civil-acts');
+        
+        // User management routes
         Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+        Route::get('/admin/users/create', [AdminController::class, 'createUser'])->name('admin.users.create');
+        Route::post('/admin/users', [AdminController::class, 'storeUser'])->name('admin.users.store');
+        Route::get('/admin/users/{user}', [AdminController::class, 'showUser'])->name('admin.users.show');
+        Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
+        Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
+        Route::post('/admin/users/{user}/toggle-status', [AdminController::class, 'toggleUserStatus'])->name('admin.users.toggle-status');
+        
         Route::get('/admin/configuration', [AdminController::class, 'configuration'])->name('admin.configuration');
         Route::post('/admin/configuration', [AdminController::class, 'updateConfiguration'])->name('admin.configuration.update');
         Route::get('/admin/reports', [AdminController::class, 'reports'])->name('admin.reports');
         Route::get('/admin/reports/export', [AdminController::class, 'exportReports'])->name('admin.reports.export');
-        Route::post('/admin/users/{user}/toggle-status', [AdminController::class, 'toggleUserStatus'])->name('admin.users.toggle-status');
     });
 });
 
