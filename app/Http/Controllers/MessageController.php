@@ -6,12 +6,13 @@ use App\Models\CivilAct;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class MessageController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // Middlewares are now handled in routes
     }
 
     /**
@@ -19,7 +20,7 @@ class MessageController extends Controller
      */
     public function store(Request $request, CivilAct $civilAct)
     {
-        $this->authorize('view', $civilAct);
+        Gate::authorize('view', $civilAct);
         
         $request->validate([
             'message' => 'required|string|max:1000',
@@ -66,7 +67,7 @@ class MessageController extends Controller
      */
     public function getMessages(CivilAct $civilAct)
     {
-        $this->authorize('view', $civilAct);
+        Gate::authorize('view', $civilAct);
         
         $messages = $civilAct->messages()
             ->with(['sender', 'recipient'])

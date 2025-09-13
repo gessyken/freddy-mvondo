@@ -6,6 +6,7 @@ use App\Models\CivilAct;
 use App\Models\Configuration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -13,7 +14,7 @@ class CivilActController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // Middlewares are now handled in routes
     }
 
     /**
@@ -79,7 +80,7 @@ class CivilActController extends Controller
      */
     public function show(CivilAct $civilAct)
     {
-        $this->authorize('view', $civilAct);
+        Gate::authorize('view', $civilAct);
         
         $civilAct->load(['user', 'documents', 'payments', 'messages.sender', 'messages.recipient']);
         
@@ -91,7 +92,7 @@ class CivilActController extends Controller
      */
     public function edit(CivilAct $civilAct)
     {
-        $this->authorize('update', $civilAct);
+        Gate::authorize('update', $civilAct);
         
         if ($civilAct->status !== 'draft') {
             return redirect()->route('civil-acts.show', $civilAct)
@@ -109,7 +110,7 @@ class CivilActController extends Controller
      */
     public function update(Request $request, CivilAct $civilAct)
     {
-        $this->authorize('update', $civilAct);
+        Gate::authorize('update', $civilAct);
         
         if ($civilAct->status !== 'draft') {
             return redirect()->route('civil-acts.show', $civilAct)
@@ -133,7 +134,7 @@ class CivilActController extends Controller
      */
     public function destroy(CivilAct $civilAct)
     {
-        $this->authorize('delete', $civilAct);
+        Gate::authorize('delete', $civilAct);
         
         if ($civilAct->status !== 'draft') {
             return redirect()->route('civil-acts.show', $civilAct)
@@ -160,7 +161,7 @@ class CivilActController extends Controller
      */
     public function submit(CivilAct $civilAct)
     {
-        $this->authorize('update', $civilAct);
+        Gate::authorize('update', $civilAct);
         
         if ($civilAct->status !== 'draft') {
             return redirect()->route('civil-acts.show', $civilAct)

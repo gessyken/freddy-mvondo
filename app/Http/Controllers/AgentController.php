@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\CivilAct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class AgentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('role:agent,admin');
+        // Middlewares are now handled in routes
     }
 
     /**
@@ -60,7 +60,7 @@ class AgentController extends Controller
      */
     public function validate(CivilAct $civilAct, Request $request)
     {
-        $this->authorize('validate', $civilAct);
+        Gate::authorize('validate', $civilAct);
         
         if ($civilAct->status !== 'under_review') {
             return redirect()->route('agent.pending-review')
@@ -106,7 +106,7 @@ class AgentController extends Controller
      */
     public function requestDocuments(CivilAct $civilAct, Request $request)
     {
-        $this->authorize('validate', $civilAct);
+        Gate::authorize('validate', $civilAct);
         
         $request->validate([
             'message' => 'required|string|max:1000',

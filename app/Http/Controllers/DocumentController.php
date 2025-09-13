@@ -6,6 +6,7 @@ use App\Models\CivilAct;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -13,7 +14,7 @@ class DocumentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // Middlewares are now handled in routes
     }
 
     /**
@@ -21,7 +22,7 @@ class DocumentController extends Controller
      */
     public function store(Request $request, CivilAct $civilAct)
     {
-        $this->authorize('update', $civilAct);
+        Gate::authorize('update', $civilAct);
         
         if ($civilAct->status !== 'draft') {
             return redirect()->route('civil-acts.show', $civilAct)
@@ -64,7 +65,7 @@ class DocumentController extends Controller
      */
     public function download(CivilAct $civilAct, Document $document)
     {
-        $this->authorize('view', $civilAct);
+        Gate::authorize('view', $civilAct);
         
         if (!Storage::exists($document->file_path)) {
             abort(404, 'Fichier non trouvé.');
@@ -78,7 +79,7 @@ class DocumentController extends Controller
      */
     public function destroy(CivilAct $civilAct, Document $document)
     {
-        $this->authorize('update', $civilAct);
+        Gate::authorize('update', $civilAct);
         
         if ($civilAct->status !== 'draft') {
             return redirect()->route('civil-acts.show', $civilAct)
@@ -97,7 +98,7 @@ class DocumentController extends Controller
      */
     public function validate(CivilAct $civilAct, Document $document, Request $request)
     {
-        $this->authorize('validate', $civilAct);
+        Gate::authorize('validate', $civilAct);
         
         $request->validate([
             'is_validated' => 'required|boolean',

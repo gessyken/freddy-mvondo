@@ -6,13 +6,14 @@ use App\Models\CivilAct;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        // Middlewares are now handled in routes
     }
 
     /**
@@ -20,7 +21,7 @@ class PaymentController extends Controller
      */
     public function create(CivilAct $civilAct)
     {
-        $this->authorize('view', $civilAct);
+        Gate::authorize('view', $civilAct);
         
         if ($civilAct->status !== 'pending_payment') {
             return redirect()->route('civil-acts.show', $civilAct)
@@ -35,7 +36,7 @@ class PaymentController extends Controller
      */
     public function store(Request $request, CivilAct $civilAct)
     {
-        $this->authorize('view', $civilAct);
+        Gate::authorize('view', $civilAct);
         
         if ($civilAct->status !== 'pending_payment') {
             return redirect()->route('civil-acts.show', $civilAct)
