@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CivilActController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\MessageController;
@@ -19,7 +20,11 @@ Route::get('/verify/{reference_number}', [PublicController::class, 'verifyAct'])
 Route::get('/download/{civilAct}', [PublicController::class, 'downloadAct'])->name('public.download-act');
 
 // Authentication routes
-Auth::routes();
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Protected routes
 Route::middleware(['auth'])->group(function () {
