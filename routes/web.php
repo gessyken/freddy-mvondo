@@ -8,6 +8,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\UrbanismeController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -30,6 +31,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware(['auth'])->group(function () {
     // Civil Acts routes
     Route::resource('civil-acts', CivilActController::class);
+
+    // Urbanisme routes
+    Route::resource('urbanisme', UrbanismeController::class);
     Route::post('civil-acts/{civilAct}/submit', [CivilActController::class, 'submit'])->name('civil-acts.submit');
     
     // Document routes

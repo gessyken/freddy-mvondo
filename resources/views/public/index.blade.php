@@ -7,18 +7,18 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h1 class="display-4 fw-bold mb-4">Gestion des Actes d'État Civil</h1>
+                <h1 class="display-4 fw-bold mb-4">Services Municipaux en Ligne</h1>
                 <p class="lead mb-4">
-                    Digitalisez vos démarches administratives. Demandez et obtenez vos actes d'état civil 
-                    (naissance, mariage, décès) en ligne, de manière simple et sécurisée.
+                    Digitalisez vos démarches administratives. Accédez aux services d'état civil et d'urbanisme 
+                    en ligne, de manière simple et sécurisée.
                 </p>
                 <div class="d-flex gap-3">
                     @auth
-                        <a href="{{ route('civil-acts.create') }}" class="btn btn-light btn-lg">
-                            <i class="bi bi-plus-circle"></i> Nouvelle Demande
+                        <a href="{{ route('dashboard') }}" class="btn btn-light btn-lg">
+                            <i class="bi bi-speedometer2"></i> Mon Espace
                         </a>
-                        <a href="{{ route('civil-acts.index') }}" class="btn btn-outline-light btn-lg">
-                            <i class="bi bi-list-ul"></i> Mes Demandes
+                        <a href="{{ route('civil-acts.create') }}" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-plus-circle"></i> Nouvelle Demande
                         </a>
                     @else
                         <a href="{{ route('register') }}" class="btn btn-light btn-lg">
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="col-lg-6 text-center">
-                <i class="bi bi-file-text display-1 opacity-75"></i>
+                <i class="bi bi-grid-1x2 display-1 opacity-75"></i>
             </div>
         </div>
     </div>
@@ -43,13 +43,13 @@
         <div class="col-12">
             <h2 class="text-center mb-5">Nos Services</h2>
         </div>
-        <div class="col-md-4 mb-4">
+        <div class="col-md-3 mb-4">
             <div class="card h-100 card-hover">
                 <div class="card-body text-center">
                     <i class="bi bi-baby text-primary display-4 mb-3"></i>
                     <h5 class="card-title">Acte de Naissance</h5>
                     <p class="card-text">
-                        Déclaration et obtention d'acte de naissance dans les 30 jours suivant la naissance.
+                        Déclaration et obtention d'acte de naissance.
                     </p>
                     <div class="mt-3">
                         <span class="badge bg-success">7 200 XAF</span>
@@ -57,13 +57,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mb-4">
+        <div class="col-md-3 mb-4">
             <div class="card h-100 card-hover">
                 <div class="card-body text-center">
                     <i class="bi bi-heart text-danger display-4 mb-3"></i>
                     <h5 class="card-title">Acte de Mariage</h5>
                     <p class="card-text">
-                        Enregistrement et obtention d'acte de mariage avec tous les documents requis.
+                        Enregistrement et obtention d'acte de mariage.
                     </p>
                     <div class="mt-3">
                         <span class="badge bg-success">15 000 XAF</span>
@@ -71,16 +71,30 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mb-4">
+        <div class="col-md-3 mb-4">
             <div class="card h-100 card-hover">
                 <div class="card-body text-center">
                     <i class="bi bi-flower1 text-secondary display-4 mb-3"></i>
                     <h5 class="card-title">Acte de Décès</h5>
                     <p class="card-text">
-                        Déclaration et obtention d'acte de décès avec les pièces justificatives.
+                        Déclaration et obtention d'acte de décès.
                     </p>
                     <div class="mt-3">
                         <span class="badge bg-success">5 000 XAF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 card-hover">
+                <div class="card-body text-center">
+                    <i class="bi bi-building text-info display-4 mb-3"></i>
+                    <h5 class="card-title">Permis de Construire</h5>
+                    <p class="card-text">
+                        Demande et suivi de votre permis de construire.
+                    </p>
+                    <div class="mt-3">
+                        <span class="badge bg-success">50 000 XAF</span>
                     </div>
                 </div>
             </div>

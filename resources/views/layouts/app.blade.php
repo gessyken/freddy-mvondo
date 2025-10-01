@@ -40,7 +40,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('home') }}">
-                <i class="bi bi-file-text"></i> Actes Civils
+                <i class="bi bi-grid-1x2"></i> Services en ligne
             </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -49,12 +49,37 @@
             
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}"><i class="bi bi-house"></i> Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('public.information') }}"><i class="bi bi-info-circle"></i> Information</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('public.contact') }}"><i class="bi bi-envelope"></i> Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('public.verify') }}"><i class="bi bi-patch-check"></i> Vérifier un acte</a>
+                    </li>
+
                     @auth
                         @if(auth()->user()->isCitizen())
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('civil-acts.index') }}">
-                                    <i class="bi bi-list-ul"></i> Mes Demandes
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-briefcase"></i> Mes Services
                                 </a>
+                                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('civil-acts.index') }}">
+                                            <i class="bi bi-file-text"></i> Actes d'État Civil
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('urbanisme.index') }}">
+                                            <i class="bi bi-building"></i> Urbanisme
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('civil-acts.create') }}">
@@ -78,16 +103,6 @@
                                     <i class="bi bi-speedometer2"></i> Administration
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.civil-acts') }}">
-                                    <i class="bi bi-file-text"></i> Tous les Actes
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.users') }}">
-                                    <i class="bi bi-people"></i> Utilisateurs
-                                </a>
-                            </li>
                         @endif
                     @endauth
                 </ul>
@@ -99,9 +114,9 @@
                                 <i class="bi bi-person-circle"></i> {{ auth()->user()->name }}
                                 <span class="badge bg-secondary ms-1">{{ ucfirst(auth()->user()->role) }}</span>
                             </a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="{{ route('dashboard') }}">
-                                    <i class="bi bi-house"></i> Tableau de Bord
+                                    <i class="bi bi-layout-text-window-reverse"></i> Mon Espace
                                 </a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
@@ -143,6 +158,9 @@
                                 </a>
                                 <a href="{{ route('admin.civil-acts') }}" class="list-group-item list-group-item-action">
                                     <i class="bi bi-file-text"></i> Tous les Actes
+                                </a>
+                                <a href="{{ route('urbanisme.index') }}" class="list-group-item list-group-item-action">
+                                    <i class="bi bi-building"></i> Urbanisme
                                 </a>
                                 <a href="{{ route('admin.users') }}" class="list-group-item list-group-item-action">
                                     <i class="bi bi-people"></i> Utilisateurs
